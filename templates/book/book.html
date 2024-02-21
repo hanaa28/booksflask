@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1> Books </h1>
+
+
+<div class="d-flex flex-row flex-wrap gap-3">
+{% for book in books %}
+<div class="card" style="width: 18rem;">
+  {% if book.image %}
+    <img src="{{book.image_url}}" class="card-img-top" alt="..." width="200px" height="200px">
+  {% endif %}
+
+    <div class="card-body">
+      <h5 class="card-title">{{book.name}}</h5>
+      <a href="{{book.show_url}}" class="btn btn-primary">Show</a>
+      <a href="{{book.delete_url}}" class="btn btn-primary">Delete</a>
+      <a href="{{book.edit_url}}" class="btn btn-primary">Edit</a>
+    </div>
+  </div>
+
+
+{% endfor %}
+</div>
+
+{% endblock %}
