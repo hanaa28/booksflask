@@ -16,7 +16,7 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI='postgresql://postgres:1411@localhost:5432/flask'
+    SQLALCHEMY_DATABASE_URI='postgresql://postgres:123@localhost:5432/flask'
 
 
 config_options = {
