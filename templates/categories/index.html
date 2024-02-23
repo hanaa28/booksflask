@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+
+{% block content%}
+
+<h1>Categories</h1>
+
+<a href="{{ url_for('categories.create_category') }}" class="btn btn-dark"> Create New Category </a>
+
+<div class="d-flex flex-row gap-2 flex-wrap" >
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+{% for category in categories %}
+<tr>
+    <td> {{category.id}} </td>
+    <td> {{category.name}} </td>
+    <td> {{category.description}} </td>
+    <td><a href="{{category.delete_url}}" class="btn btn-primary">Delete</a>
+        <a href="{{category.edit_url}}" class="btn btn-primary">Update</a></td>
+    
+</tr>
+
+{% endfor %}
+</table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+{% import 'macros_.html' as mymacro %}
+
+{% block content %}
+<h1>Add Book</h1>
+<form action="" method="POST" enctype="multipart/form-data">
+   {{ form.csrf_token}}
+   {{mymacro.render_field(form.name) }}
+   {{mymacro.render_field(form.image) }}
+   {{mymacro.render_field(form.num_pages) }}
+   {{mymacro.render_field(form.price) }}
+   {{mymacro.render_field(form.Category_id) }}
+   
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
+

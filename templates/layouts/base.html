@@ -19,7 +19,13 @@
                 <a class="nav-link" href="{{url_for('books.book_create')}}">Add New Book</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="">Books</a>
+                <a class="nav-link" href="{{url_for('books.createform')}}">Add New Book With WTForms</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('categories.index')}}">Add New Category</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('books.books_index')}}">Books</a>
               </li>
              
             </ul>

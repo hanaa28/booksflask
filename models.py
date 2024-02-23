@@ -4,6 +4,42 @@ from flask import url_for
 
 db = SQLAlchemy()
 
+class Category(db.Model):
+    __tablename__= 'category'
+    id = db.Column(db.Integer , primary_key=True)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+    book = db.relationship('Book', backref='category_name', lazy=True)
+
+    def __str__(self):
+     return f'{self.name}'
+
+    @classmethod
+    def get_all_category(cls):
+     return cls.query.all()
+    
+    @classmethod
+    def delete_category_by_id(cls,id):
+        return cls.query.get_or_404(id)
+    
+    @property
+    def delete_url(self):
+        return url_for("categories.category_delete",id=self.id)
+    
+    @property
+    def edit_url(self):
+        return url_for("categories.category_edit",id=self.id)
+    
+   
+
+
+
+
+
+
+
+
+
 
 class Book(db.Model):
     __tablename__ = 'books'
@@ -15,6 +51,9 @@ class Book(db.Model):
     price = db.Column(db.Float)       
     created_at = db.Column(db.DateTime, default=datetime.utcnow)  
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    Category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=True) 
+    
+
 
 
     def __str__(self):
@@ -39,6 +78,13 @@ class Book(db.Model):
     @classmethod
     def delete_book_by_id(cls,id):
         return cls.query.get_or_404(id)
+    
+    @classmethod
+    def save_book(cls, request_data):
+        book= cls(**request_data)
+        db.session.add(book)
+        db.session.commit()
+        return book
     
     @property
     def delete_url(self):

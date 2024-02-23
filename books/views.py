@@ -7,11 +7,13 @@ from flask import url_for
 from app.models import db
 from werkzeug.utils import secure_filename
 import os
+from app.books.forms import BookForm
+from app.category.forms import CategoryForm
 
 
 
 
-UPLOAD_FOLDER = 'static/books/images/'
+UPLOAD_FOLDER = "{{book.image_url}}"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 
@@ -48,6 +50,24 @@ def book_create():
     return render_template("book/create.html")
 
 
+
+@book_blueprint.route("/createform", methods=["POST" , "GET"], endpoint='createform')
+def createform():
+    form = BookForm(request.form)
+    if request.method == 'POST' and form.validate():
+        print(request.form)
+        book_data = dict(request.form)
+        print(book_data)
+        del book_data['csrf_token']
+        book= Book.save_book(book_data)
+        return redirect(book.show_url)
+       
+    # elif request.method == 'GET':   
+        
+    return render_template("book/createform.html", form=form)
+
+
+
 @book_blueprint.route("/delete/<int:id>", endpoint="book_delete")
 def delete_book(id):
     book_to_delete = Book.delete_book_by_id(id)
@@ -77,3 +97,5 @@ def edit_book(id):
         db.session.commit()
         return redirect(url_for('books.books_show', id=book.id))
     return render_template("book/edit.html", book=book)
+
+
